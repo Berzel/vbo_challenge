@@ -12,7 +12,7 @@ class Transaction extends Model
 
     protected $table = 'transactions';
 
-    protected $guared = [];
+    protected $guarded = [];
 
     public function TransactionReference() : Attribute
     {

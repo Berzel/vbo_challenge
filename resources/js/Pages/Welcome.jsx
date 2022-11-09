@@ -133,7 +133,9 @@ function Transact({user}) {
 
     function addTransaction(event) {
         event.preventDefault();
-        post(route('transactions.store'));
+        post(route('transactions.store'), {
+            onSuccess: () => alert('Transaction Added')
+        });
     }
 
     return (
