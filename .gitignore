@@ -12,6 +12,7 @@
 Homestead.json
 Homestead.yaml
 auth.json
+adfury.pem
 npm-debug.log
 yarn-error.log
 /.fleet

@@ -1,0 +1,62 @@
+import:
+  - recipe/laravel.php
+
+config:
+  repository: 'git@github.com:Berzel/vbo_challenge.git'
+  php_fpm_version: '8.1'
+
+hosts:
+  prod:
+    hostname: ec2-18-204-205-91.compute-1.amazonaws.com
+    remote_user: ubuntu
+    identity_file: 'adfury.pem'
+    deploy_path: '/var/www/vbo.co.zw'
+    keep_releases: 5
+  staging:
+    hostname: ec2-18-204-205-91.compute-1.amazonaws.com
+    remote_user: ubuntu
+    identity_file: 'adfury.pem'
+    deploy_path: '/var/www/staging.vbo.co.zw'
+    keep_releases: 5
+
+tasks:
+  deploy:
+    - deploy:setup
+    - deploy:lock
+    - deploy:release
+    - deploy:update_code
+    - deploy:shared
+    - deploy:writable
+    - composer:install
+    - artisan:storage:link
+    - artisan:config:cache
+    - artisan:route:cache
+    - artisan:view:cache
+    - artisan:event:cache
+    - artisan:migrate
+    - npm:install
+    - npm:build
+    - deploy:symlink
+    - supervisor:reread
+    - supervisor:update
+    - supervisor:restart
+    - deploy:unlock
+    - deploy:cleanup
+    - deploy:success
+  composer:install:
+    - run: 'cd {{release_path}} && composer install --optimize-autoloader --no-interaction --no-dev'
+  npm:install:
+    - run: 'cd {{release_path}} && npm install'
+  npm:build:
+    - run: 'cd {{release_path}} && npm run build'
+  supervisor:reread:
+    - run: 'sudo supervisorctl reread'
+  supervisor:update:
+    - run: 'sudo supervisorctl update all'
+  supervisor:restart:
+    - run: 'sudo supervisorctl restart all'
+  build:
+    - run: uptime
+
+after:
+  deploy:failed: deploy:unlock
