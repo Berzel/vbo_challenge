@@ -107,7 +107,7 @@ function AddUserForm() {
     )
 }
 
-function Transact({user}) {
+function TransactForm({user}) {
     const [modalOpen, setModalOpen] = useState(false);
     const { data, setData, post, processing, errors, reset } = useForm({
         user: user.id,
@@ -329,7 +329,7 @@ export default function Welcome({users}) {
                                                         Delete
                                                     </Link>
 
-                                                    <Transact user={user} />
+                                                    <TransactForm user={user} />
                                                 </div>
                                             </td>
                                         </tr>

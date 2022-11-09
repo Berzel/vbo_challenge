@@ -12,7 +12,20 @@ class Transaction extends Model
 
     protected $table = 'transactions';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'id' ,
+        'amount' ,
+        'fee',
+        'product' ,
+        'reference' ,
+        'response_code',
+        'gateway_reference',
+        'amount_confirmed' ,
+        'indicator' ,
+        'status',
+        'response_message',
+        'currency'
+    ];
 
     public function TransactionReference() : Attribute
     {
