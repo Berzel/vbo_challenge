@@ -134,7 +134,11 @@ function TransactForm({user}) {
     function addTransaction(event) {
         event.preventDefault();
         post(route('transactions.store'), {
-            onSuccess: () => alert('Transaction Added')
+            onSuccess: () => {
+                setModalOpen(false);
+                alert('Transaction successfull!');
+                reset('bank', 'type', 'amount', 'currency');
+            }
         });
     }
 

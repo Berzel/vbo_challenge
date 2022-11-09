@@ -52,9 +52,7 @@ class TransactionController extends Controller
                 'bank1' => fn() => Bank1::create($bank1Data),
                 'bank2' => fn() => Bank2::create($bank2Data),
                 'bank3' => fn() => Bank3::create($bank3Data),
-            ];
-
-            $bankOptions[$request->bank]();
+            ][$request->bank]();
 
             return back();
         });
