@@ -29,11 +29,11 @@ Made the following assumptions
 
 
 Answers
-1. 
-2. 
+1. Run the app
+2. Check docker compose file
 3. Creating views
     ```
-    create view matched_transactions as (
+    create view matched_transacions as (
         (
         select transactions.*, bank1.transaction_reference as card, 'bank1' as bank
         from transactions
@@ -59,7 +59,8 @@ Answers
     ```
     create view total_amount_per_currency_per_week as (
         select currency, sum(amount), week(created_at) as week 
-        from matched_transactions
+        from matched_transacions
+        where matched_transacions.status='Successful'
         group by currency, week
     )
     ```
@@ -68,7 +69,8 @@ Answers
     ```
     create view total_amount_per_card_per_week as (
         select card, sum(amount), week(created_at) as week 
-        from matched_transactions
+        from matched_transacions
+        where matched_transacions.status='Successful'
         group by card, week
     )
     ```
@@ -77,7 +79,8 @@ Answers
     ```
     create view total_amount_per_bank_per_week as (
         select bank, sum(amount), week(created_at) as week 
-        from matched_transactions
+        from matched_transacions
+        where matched_transacions.status='Successful'
         group by bank, week
     )
     ```
@@ -86,8 +89,7 @@ Answers
     ```
     create view total_transactions_per_card_per_week as (
         select card, week(created_at) as week, count(id) 
-        from matched_transactions
+        from matched_transacions
         group by card, week
     )
     ```
-
