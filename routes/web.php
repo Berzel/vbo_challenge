@@ -18,5 +18,6 @@ use Inertia\Inertia;
 
 Route::post('transactions', [TransactionController::class, 'store'])->name('transactions.store');
 Route::post('users', [UserController::class, 'store'])->name('users.store');
+Route::delete('users/{user}', [UserController::class, 'delete'])->name('users.destroy');
 
 Route::get('/', [UserController::class, 'index'])->name('home');
