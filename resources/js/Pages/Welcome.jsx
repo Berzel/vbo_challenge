@@ -113,7 +113,7 @@ function Transact({user}) {
         user: user.id,
         bank: 'bank1',
         type: 'debit',
-        amount: 1,
+        amount: 100,
         currency: 'usd'
     });
 
@@ -202,22 +202,6 @@ function Transact({user}) {
                                             {errors.type && (<div className='mt-2 text-sm text-red-500'>{errors.type}</div>)}
                                         </label>
 
-                                        <label className='block' htmlFor="amount">
-                                            <div className='text-sm'>
-                                                Amount
-                                            </div>
-
-                                            <input
-                                                required
-                                                id="amount"
-                                                name="amount"
-                                                value={data.amount}
-                                                className='block w-full rounded-md'
-                                                onChange={onHandleChange}
-                                                type="text" />
-                                            {errors.amount && (<div className='mt-2 text-sm text-red-500'>{errors.amount}</div>)}
-                                        </label>
-
                                         <label className='block' htmlFor="currency">
                                             <div className='text-sm'>
                                                 Currency
@@ -236,6 +220,22 @@ function Transact({user}) {
                                                     <option value="eur">EUR</option>
                                             </select>
                                             {errors.currency && (<div className='mt-2 text-sm text-red-500'>{errors.currency}</div>)}
+                                        </label>
+
+                                        <label className='block' htmlFor="amount">
+                                            <div className='text-sm'>
+                                                Amount
+                                            </div>
+
+                                            <input
+                                                required
+                                                id="amount"
+                                                name="amount"
+                                                value={data.amount}
+                                                className='block w-full rounded-md'
+                                                onChange={onHandleChange}
+                                                type="text" />
+                                            {errors.amount && (<div className='mt-2 text-sm text-red-500'>{errors.amount}</div>)}
                                         </label>
                                     </div>
 
